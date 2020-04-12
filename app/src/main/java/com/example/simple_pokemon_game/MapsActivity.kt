@@ -26,6 +26,16 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
         mapFragment.getMapAsync(this)
     }
 
+    fun checkPermission(){
+
+        if(Build.VERSION.SDK_INT>=23){
+
+        }
+
+        GetUserLocation()
+    }
+
+
 
     fun GetUserLocation(){
         Toast.makeText(this, "User location access on", Toast.LENGTH_LONG).show()
