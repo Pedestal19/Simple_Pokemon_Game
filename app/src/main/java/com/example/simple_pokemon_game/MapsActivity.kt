@@ -1,6 +1,8 @@
 package com.example.simple_pokemon_game
 
 import android.content.pm.PackageManager
+import android.location.Location
+import android.location.LocationListener
 import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -26,6 +28,8 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
         val mapFragment = supportFragmentManager
             .findFragmentById(R.id.map) as SupportMapFragment
         mapFragment.getMapAsync(this)
+
+        checkPermission()
     }
 
     var ACCESSLOCATION=123;
@@ -86,5 +90,32 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
             .snippet("here is my location")
             .icon(BitmapDescriptorFactory.fromResource(R.drawable.mario3)))
         mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(sydney, 15f))
+    }
+
+    inner class MyLocationListener:LocationListener{
+
+        var location:Location?=null
+
+        constructor(){
+            location= Location("Start")
+            location!!.longitude=0.0
+            location!!.latitude=0.0
+        }
+        override fun onLocationChanged(location: Location?) {
+            this.location=location
+        }
+
+        override fun onStatusChanged(provider: String?, status: Int, extras: Bundle?) {
+            TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        }
+
+        override fun onProviderEnabled(provider: String?) {
+            TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        }
+
+        override fun onProviderDisabled(provider: String?) {
+            TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        }
+
     }
 }
