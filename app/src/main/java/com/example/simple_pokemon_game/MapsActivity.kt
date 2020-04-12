@@ -1,7 +1,9 @@
 package com.example.simple_pokemon_game
 
+import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.widget.Toast
 
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
@@ -23,6 +25,13 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
             .findFragmentById(R.id.map) as SupportMapFragment
         mapFragment.getMapAsync(this)
     }
+
+
+    fun GetUserLocation(){
+        Toast.makeText(this, "User location access on", Toast.LENGTH_LONG).show()
+        //TODO: will implement later
+    }
+
 
     /**
      * Manipulates the map once available.
