@@ -8,6 +8,7 @@ import android.location.LocationManager
 import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.widget.Toast
 import androidx.core.app.ActivityCompat
 
@@ -58,10 +59,15 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
 
         var locationManager=getSystemService(Context.LOCATION_SERVICE) as LocationManager
 
-        locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER,3,3f, myLocation)
+        if (ActivityCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
+            locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER,3,3f, myLocation)
+            var myThread=myThread()
+            myThread.start()
+        }else{
+            Toast.makeText(this, "permission not granted", Toast.LENGTH_LONG)
+        }
 
-        var myThread=myThread()
-        myThread.start()
+
     }
 
     override fun onRequestPermissionsResult(
@@ -139,6 +145,7 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
                         mMap!!.clear()
                         // Add a marker in Sydney and move the camera
                         val sydney = LatLng(location!!.latitude, location!!.longitude)
+                        println("this are the values"+location!!.latitude.toString()+"\n"+location!!.longitude)
                         mMap.addMarker(MarkerOptions()
                             .position(sydney)
                             .title("Me")
