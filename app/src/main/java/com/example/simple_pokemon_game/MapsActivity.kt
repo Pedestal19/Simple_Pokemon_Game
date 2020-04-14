@@ -132,27 +132,50 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
 
     }
 
+    var oldLocation:Location?=null
+
     inner class myThread:Thread{
 
         constructor():super(){
-
+            oldLocation= Location("Start")
+            oldLocation!!.longitude=0.0
+            oldLocation!!.latitude=0.0
         }
 
         override fun run() {
             while (true){
                 try{
+                    if(oldLocation!!.distanceTo(location)==0f){
+                        println("user loc has not changed/is null")
+                        continue
+                    }
+
+                    oldLocation=location
 
                     runOnUiThread{
                         mMap!!.clear()
                         // Add a marker in Sydney and move the camera
                         val sydney = LatLng(location!!.latitude, location!!.longitude)
-                        println("this are the values"+location!!.latitude.toString()+"\n"+location!!.longitude)
+                        println("this are the values ::GPS "+location!!.latitude.toString()+"\n"+location!!.longitude)
                         mMap.addMarker(MarkerOptions()
                             .position(sydney)
                             .title("Me")
                             .snippet("here is my location")
                             .icon(BitmapDescriptorFactory.fromResource(R.drawable.mario3)))
-                        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(sydney, 15f))
+                        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(sydney, 7f))
+
+                        for(i in 0..listPokemons.size-1){
+                            var newPokemon = listPokemons[i]
+                            if(newPokemon.IsCatch==false){
+                                val pokemonLoc = LatLng(newPokemon.latitude!!, newPokemon.longitude!!)
+                                println("this are the values"+newPokemon.latitude.toString()+"\n"+newPokemon.longitude!!)
+                                mMap.addMarker(MarkerOptions()
+                                    .position(pokemonLoc)
+                                    .title(newPokemon.name!!)
+                                    .snippet(newPokemon.desc!!)
+                                    .icon(BitmapDescriptorFactory.fromResource(newPokemon.image!!)))
+                            }
+                        }
                     }
 
                     Thread.sleep(1000)
