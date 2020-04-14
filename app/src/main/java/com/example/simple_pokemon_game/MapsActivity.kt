@@ -34,6 +34,7 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
         mapFragment.getMapAsync(this)
 
         checkPermission()
+        LoadPokemon()
     }
 
     var ACCESSLOCATION=123;
@@ -161,5 +162,14 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
                 }
             }
         }
+    }
+
+    var listPokemons = ArrayList<Pokemon>()
+
+    fun LoadPokemon(){
+        listPokemons.add(Pokemon((R.drawable.charmander),  "Charmander", "stays at wuse", 55.0,9.062811, 7.470844))
+        listPokemons.add(Pokemon((R.drawable.bulbasaur),  "bulbasaur", "crusing at maitama", 30.0,9.086602, 7.494941))
+        listPokemons.add(Pokemon((R.drawable.squirtle),  "squirtle", "playing in central area", 67.0,9.052968, 7.478736))
+//        listPokemons.add(Pokemon((R.drawable.charmander),  "Charmander", "here is from wuse", 55.0,9.062811, 7.470844))
     }
 }

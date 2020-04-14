@@ -21,4 +21,6 @@ class Pokemon{
         this.IsCatch = false
     }
 
+
+
 }
